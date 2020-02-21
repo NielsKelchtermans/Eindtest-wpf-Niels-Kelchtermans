@@ -74,6 +74,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\Ballen.cs" />
+    <Compile Include="Model\Kleur.cs" />
+    <Compile Include="Model\Bal.cs" />
+    <Compile Include="Model\Wenskaart.cs" />
+    <Compile Include="ViewModel\WenskaartVM.cs" />
     <Compile Include="View\WenskaartenWindow.xaml.cs">
       <DependentUpon>WenskaartenWindow.xaml</DependentUpon>
     </Compile>
@@ -110,11 +115,12 @@
     <Resource Include="images\kerstkaart.jpg" />
     <Resource Include="images\vuilnisbak.png" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Page Include="Resources\BalStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\WenskaartenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

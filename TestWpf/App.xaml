@@ -4,11 +4,13 @@
              xmlns:local="clr-namespace:TestWpf" 
              StartupUri="view/WenskaartenWindow.xaml" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             d1p1:Ignorable="d" 
-             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+>
   <Application.Resources>
     <ResourceDictionary>
-      
-    </ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary  Source="Resources/BalStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+        </ResourceDictionary>
   </Application.Resources>
 </Application>

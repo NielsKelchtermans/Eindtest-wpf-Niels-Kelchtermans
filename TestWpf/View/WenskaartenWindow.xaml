@@ -6,59 +6,114 @@
         xmlns:local="clr-namespace:TestWpf.View"
         mc:Ignorable="d"
         Title="Wenskaarten" Height="550" Width="750">
-    <StackPanel Orientation="Horizontal">
-    <StackPanel Margin="0" Width="500" HorizontalAlignment="Left">
-        <Canvas Width="500"
+
+
+
+    <DockPanel>
+        <Menu Height="24" 
+              Name="MenuBalk"
+              DockPanel.Dock="Top">
+            <MenuItem Header="Bestand">
+                <MenuItem   Name="MenuNieuw"
+                            Header="Nieuw"
+                            IsCheckable="True"
+                            Command="New"></MenuItem>
+                <MenuItem   Name="MenuOpenen"
+                            Header="Openen"
+                            IsCheckable="True"></MenuItem>
+                <MenuItem   Name="MenuOpslaan"
+                            Header="Opslaan"
+                            IsCheckable="True"></MenuItem>
+                <MenuItem   Name="MenuAfdrukvoorbeeld"
+                            Header="Afdrukvoorbeeld"
+                            IsCheckable="True"
+                            Command="PrintPreview"></MenuItem>
+                <Separator></Separator>
+                <MenuItem   Name="MenuAfsluiten"
+                            Header="Afsluiten"
+                            IsCheckable="True"></MenuItem>
+
+            </MenuItem>
+            <MenuItem Header="Kaarten">
+                <MenuItem Header="Kerstkaart"
+                          Name="MenuKerstkaart"
+                          IsCheckable="True"></MenuItem>
+                <MenuItem Header="Geboortekaart"
+                          Name="MenuGeboortekaart"
+                          IsCheckable="True"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom"
+                   Height="24"
+                   >
+            <StatusBarItem Name="StatusTekst"
+                           HorizontalAlignment="Left"
+                           Content="skjflasjdl"></StatusBarItem>
+
+        </StatusBar>
+        <StackPanel Orientation="Horizontal" Visibility="Visible" Name="StackPanelTotaal">
+            <StackPanel Margin="0" Width="500" HorizontalAlignment="Left">
+                <Canvas Width="500"
                 Height="400"
                 HorizontalAlignment="Center"
                 ></Canvas>
-        <TextBox HorizontalAlignment="Center"
+                <TextBox HorizontalAlignment="Center"
                  Margin="20">
-            
-        </TextBox>
-    </StackPanel>
-    <StackPanel
+
+                </TextBox>
+            </StackPanel>
+            <StackPanel
         Width="250"
         HorizontalAlignment="Right"
         >
-            <StackPanel>
-                <TextBox Margin="0 30 0 5"
+                <StackPanel >
+                    <TextBox Margin="0 30 0 5"
                          Text="Kleur van de bal"
                          HorizontalAlignment="Center"></TextBox>
-                <ComboBox HorizontalAlignment="Center"
-                          Margin="5"></ComboBox>
-                <Ellipse    HorizontalAlignment="Center"
-                            Margin="10"></Ellipse>
-                <Image Source="images\vuilnisbak.png"
-                       Margin="50 90 50 110"
-                       Height="100"
+                    <ComboBox	Name="comboBoxKleuren" Margin="5" Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Path=Naam}"></Label>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+
+                    </ComboBox>
+                    <Ellipse    HorizontalAlignment="Center"
+                            Margin="10"
+                            ></Ellipse>
+                    <Image Source="images\vuilnisbak.png"
+                       Margin="50 60 50 40"
+                       Height="110"
                        ></Image>
-                <TextBlock Text="Lettertype"
+                    <TextBlock Text="Lettertype"
                            HorizontalAlignment="Center"
                            FontSize="14"
                            ></TextBlock>
-                <ComboBox   HorizontalAlignment="Center"
+                    <ComboBox   Name="LettertypeComboBox" 
+                            Width="150"
+                            HorizontalAlignment="Center"
+                            ItemsSource="{Binding Source={x:Static Member=Fonts.SystemFontFamilies}}"
                             Margin="5"></ComboBox>
-                <StackPanel Margin="20 0"
+                    <StackPanel Margin="20 0"
                             Orientation="Horizontal">
-                    <TextBlock Text="Grootte"
+                        <TextBlock Text="Grootte"
                                FontSize="14"
                                VerticalAlignment="Center"></TextBlock>
-                    <Label     Content="30"
+                        <Label     Content="30"
                                FontSize="20"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"></Label>
-                    <StackPanel Margin="5">
-                        <RepeatButton Content="+"></RepeatButton>
-                        <RepeatButton Content="-"></RepeatButton>
+                        <StackPanel Margin="5">
+                            <RepeatButton Content="+" Height="16" Width="16"></RepeatButton>
+                            <RepeatButton Content="-" Height="16" Width="16"></RepeatButton>
+                        </StackPanel>
+
+
                     </StackPanel>
-                               
-                               
+
+
                 </StackPanel>
-                            
-                            
             </StackPanel>
-    </StackPanel>
-    </StackPanel>
-                
+        </StackPanel>
+    </DockPanel>
 </Window>
