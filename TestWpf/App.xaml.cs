@@ -20,40 +20,39 @@ namespace TestWpf
     /// </summary>
     public partial class App : Application
     {
-    //    protected override void OnStartup(StartupEventArgs e)
-    //    {
-    //        base.OnStartup(e);
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    base.OnStartup(e);
 
-    //        ////kleuren inladen in de combobox
-    //        //foreach (PropertyInfo propInfo in typeof(Colors).GetProperties())     //Getproperties haalt al de props uit een type. Daarom typeof(colors). Returns een propertyInfo list
-    //        //{
-    //        //    //het kleur object aanmaken
-    //        //    Kleur eenKleur = new Kleur();
-    //        //    //om de prop Borstel een waarde te geven moeten we een type SolidColorBrush hebben die gemaakt wordt van prop van colors
-    //        //    //moet via een BrushConverter
-    //        //    BrushConverter eenBrushConverter = new BrushConverter();
-    //        //    //eenKleur.Borstel = (SolidColorBrush)eenBrushConverter.ConvertFromString(propInfo.Name);
-    //        //    SolidColorBrush deKleur = (SolidColorBrush)eenBrushConverter.ConvertFromString(propInfo.Name);
+        //    //kleuren inladen in de combobox
+        //    foreach (PropertyInfo propInfo in typeof(Colors).GetProperties())     
+        //    {
+        //        //het kleur object aanmaken
+        //        Kleur eenKleur = new Kleur();
+                
+        //        BrushConverter eenBrushConverter = new BrushConverter();
+                
+        //        SolidColorBrush deKleur = (SolidColorBrush)eenBrushConverter.ConvertFromString(propInfo.Name);
 
-    //        //    eenKleur.Naam = propInfo.Name;
-    //        //    eenKleur.Borstel = deKleur;
-    //        //    eenKleur.Hex = deKleur.ToString();              //komt later goed van pas deze tostring van een solidcolorbrush object
-    //        //    eenKleur.Blauw = deKleur.Color.B;               //allemaal via het solidColorBrush object  ...waarom niet via propInfo? heeft niet die props dus via een casting
-    //        //    eenKleur.Groen = deKleur.Color.G;               //bytes
-    //        //    eenKleur.Rood = deKleur.Color.R;
+        //        eenKleur.Naam = propInfo.Name;
+        //        eenKleur.Borstel = deKleur;
+        //        eenKleur.Hex = deKleur.ToString();              //komt later goed van pas deze tostring van een solidcolorbrush object
+        //        eenKleur.Blauw = deKleur.Color.B;               //allemaal via het solidColorBrush object  ...waarom niet via propInfo? heeft niet die props dus via een casting
+        //        eenKleur.Groen = deKleur.Color.G;               //bytes
+        //        eenKleur.Rood = deKleur.Color.R;
 
-    //        //    //Inladen in de combobox
-    //        //    comboBoxKleuren.Items.Add(eenKleur);
-    //        //}
+        //          //Inladen in de combobox
+        //        ComboBoxKleuren.Items.Add(eenKleur);
+                
 
-    //        ////lettertypes alfabetisch laden
-    //        ////LettertypeComboBox.Items.SortDescriptions.Add(
-    //        ////new SortDescription("Source", ListSortDirection.Ascending));
+        //        ////lettertypes alfabetisch laden
+        //        ////LettertypeComboBox.Items.SortDescriptions.Add(
+        //        ////new SortDescription("Source", ListSortDirection.Ascending));
 
-    //    }
-
+        //    }
 
 
+        //}
     }
 }
 

@@ -38,7 +38,7 @@ namespace TestWpf.ViewModel
             set
             {
                 wenskaart.Achtergrond = value;
-                RaisePropertyChanged("Achtergrond"); 
+                RaisePropertyChanged("Achtergrond");
             }
         }
         public Model.Ballen BallenLijst
@@ -112,7 +112,7 @@ namespace TestWpf.ViewModel
         {
             try
             {
-                
+
                 SaveFileDialog dlg = new SaveFileDialog
                 {
                     FileName = "wenskaart",
@@ -128,18 +128,18 @@ namespace TestWpf.ViewModel
                         int eindpunt = pad.Length - 4;
                         string naam = pad.Substring(startpunt, eindpunt);
 
-                        bestand.WriteLine(pad + " " +naam);
+                        bestand.WriteLine(pad + " " + naam);
                         bestand.WriteLine(BallenLijst.LengteLijstBallen);
 
                         foreach (Model.Bal bal in BallenLijst.LijstBallen)
                         {
                             bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
                         }
-                       
+
                         bestand.WriteLine(WensTekst);
                         bestand.WriteLine(LettertypeVanWens.ToString());
                         bestand.WriteLine(LetterGrootte.ToString());
-                        
+
                     }
                 }
             }
@@ -169,13 +169,13 @@ namespace TestWpf.ViewModel
                     {
                         //Achtergrond pad en naam
                         string eersteLijn = bestand.ReadLine();
-                        int eindePad = eersteLijn.IndexOf(" ")-1;
+                        int eindePad = eersteLijn.IndexOf(" ") - 1;
                         Achtergrond = new BitmapImage(new Uri(eersteLijn.Substring(0, eindePad), UriKind.Absolute));
                         //AantalBallen
                         int aantalBallen = Convert.ToInt32(bestand.ReadLine());
                         //Lijst maken van Ballen met kleur en xpos, ypos
                         BallenLijst.LijstBallen = null;
-                         
+
                         for (int i = 0; i < aantalBallen; i++)
                         {
                             string balLijn = bestand.ReadLine();
@@ -187,7 +187,7 @@ namespace TestWpf.ViewModel
                             kleurke.Borstel = deKleur;
                             kleurke.Naam = balKleur;
                             //Hex, Rood, Groen, Blauw niet nodig
-                            int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2)-1 ;
+                            int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2) - 1;
                             int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
                             int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
                             Model.Bal bal = new Model.Bal(kleurke, xPos, yPos);
@@ -199,7 +199,7 @@ namespace TestWpf.ViewModel
                         LettertypeVanWens = new FontFamily(bestand.ReadLine());
                         //lettergrootte
                         LetterGrootte = Convert.ToInt32(bestand.ReadLine());
-  
+
                     }
                 }
             }
@@ -210,5 +210,77 @@ namespace TestWpf.ViewModel
             }
 
         }
+
+        public RelayCommand PrintPreviewCommand
+        {
+            get { return new RelayCommand(PrintApp); }
+        }
+        private void PrintApp()
+        {
+            MessageBox.Show("Hier komt de printpreview");
+        }
+
+        public RelayCommand AfsluitenCommand
+        {
+            get { return new RelayCommand(AfsluitenWenskaart); }
+        }
+        private void AfsluitenWenskaart()
+        {
+            Application.Current.MainWindow.Close();
+        }
+
+        public RelayCommand MeerCommand
+        {
+            get { return new RelayCommand(MeerApp); }
+        }
+        private void MeerApp()
+        {
+            if (LetterGrootte <=40 )
+            {
+               LetterGrootte += 1;
+            }
+        }
+
+        public RelayCommand MinderCommand
+        {
+            get { return new RelayCommand(MinderApp); }
+        }
+        private void MinderApp()
+        {
+            if (LetterGrootte >= 10)
+            {
+                LetterGrootte -= 1;
+            }
+        }
+
+        public RelayCommand KerstCommand
+        {
+            get { return new RelayCommand(KerstApp); }
+        }
+        private void KerstApp()
+        {
+            Achtergrond = new BitmapImage(new Uri("pack://application:,,,/images/kerstkaart.jpg", UriKind.Absolute));
+        }
+
+        public RelayCommand GeboorteCommand
+        {
+            get { return new RelayCommand(GeboorteApp); }
+        }
+        private void GeboorteApp()
+        {
+            Achtergrond = new BitmapImage(new Uri("pack://application:,,,/images/geboortekaart.jpg", UriKind.Absolute));
+        }
+        public RelayCommand<CancelEventArgs> ClosingCommand
+        {
+            get { return new RelayCommand<CancelEventArgs>(OnWindowClosing); }
+        }
+        private void OnWindowClosing(CancelEventArgs e)
+        {
+            if (MessageBox.Show("Afsluiten", "Wilt u het programma afsluiten?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
     }
 }
