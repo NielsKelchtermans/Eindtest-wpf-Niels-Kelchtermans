@@ -28,9 +28,10 @@ namespace TestWpf.View
             InitializeComponent();
             
         }
-        private Ellipse sleepEllipse = new Ellipse();
+        //private Ellipse sleepEllipse = new Ellipse();
         private void Ellipse_MouseMove(object sender, MouseEventArgs e)
         {
+            Ellipse sleepEllipse = new Ellipse();
             sleepEllipse = (Ellipse)sender;
             if ((e.LeftButton == MouseButtonState.Pressed) && (sleepEllipse.Fill != null))
             {
@@ -39,9 +40,10 @@ namespace TestWpf.View
             }
 
         }
-        private Ellipse bal = new Ellipse();
+        //private Ellipse bal = new Ellipse();
         private void Canvas_Drop(object sender, DragEventArgs e)
         {
+            Ellipse bal = new Ellipse();
             if (e.Data.GetDataPresent("deKleur"))
             {
                 Brush gesleepteKleur = (Brush)e.Data.GetData("deKleur");
