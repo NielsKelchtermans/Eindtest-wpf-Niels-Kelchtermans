@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media; // voor SolidColorBrush
 
 
-namespace TestWpf
+namespace TestWpf.Model
 {
     public class Kleur //een selectie van de klasse color voor gebruiksgemak
     {

@@ -23,12 +23,23 @@ namespace TestWpf
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            //test aanmaak van een bal
+            Model.Kleur kleurtje = new Model.Kleur();
+            kleurtje.Borstel = new SolidColorBrush(Colors.Red);
+            
+            Model.Bal bal1 = new Model.Bal(kleurtje, 150, 150);
+
             //aanmaken wenskaart
             Model.Wenskaart wenskaartStart = new Model.Wenskaart();
+
+            //invoegen bal in wenskaart
+            wenskaartStart.Ballen = new List<Model.Bal> { bal1 };
+
             //viewModel wenskaart
             ViewModel.KleurLijst kleurLijst = new ViewModel.KleurLijst();
             ViewModel.LettertypenVM fontLijst = new ViewModel.LettertypenVM();
             ViewModel.WenskaartVM wenskaartVMStart = new ViewModel.WenskaartVM(wenskaartStart, kleurLijst, fontLijst);
+
             //View
             View.WenskaartenWindow wenskaartenWindow = new View.WenskaartenWindow();
             

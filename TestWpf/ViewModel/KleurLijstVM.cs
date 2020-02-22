@@ -19,16 +19,16 @@ namespace TestWpf.ViewModel
 {
     public class KleurLijst : ViewModelBase
     {
-        private ObservableCollection<Kleur> kleurenLijst;
+        private ObservableCollection<Model.Kleur> kleurenLijst;
 
-        public ObservableCollection<Kleur> KleurenLijst
+        public ObservableCollection<Model.Kleur> KleurenLijst
         {
             get { return kleurenLijst; }
             set { kleurenLijst = value; RaisePropertyChanged("KleurenLijst"); }
         }
-        private Kleur selectedKleur;
+        private Model.Kleur selectedKleur;
 
-        public Kleur SelectedKleur
+        public Model.Kleur SelectedKleur
         {
             get { return selectedKleur; }
             set { selectedKleur = value; RaisePropertyChanged("SelectedKleur"); }
@@ -37,11 +37,11 @@ namespace TestWpf.ViewModel
         public KleurLijst()
         {
             //we gaan al de kleuren van colors toevoegen aan onze lijst met kleuren
-            ObservableCollection<Kleur> eenKleurenLijst = new ObservableCollection<Kleur>();
+            ObservableCollection<Model.Kleur> eenKleurenLijst = new ObservableCollection<Model.Kleur>();
             foreach (PropertyInfo propInfo in typeof(Colors).GetProperties())
             {
                 //het kleur object aanmaken
-                Kleur eenKleur = new Kleur();
+                Model.Kleur eenKleur = new Model.Kleur();
 
                 BrushConverter eenBrushConverter = new BrushConverter();
 

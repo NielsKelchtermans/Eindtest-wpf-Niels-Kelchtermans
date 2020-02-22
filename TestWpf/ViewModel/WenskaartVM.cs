@@ -48,12 +48,12 @@ namespace TestWpf.ViewModel
         }
 
         //KleurenLijst
-        public ObservableCollection<Kleur> KleurenLijst
+        public ObservableCollection<Model.Kleur> KleurenLijst
         {
             get { return kleurLijst.KleurenLijst; }
             set { kleurLijst.KleurenLijst = value; RaisePropertyChanged("KleurenLijst"); }
         }
-        public Kleur SelectedKleur
+        public Model.Kleur SelectedKleur
         {
             get { return kleurLijst.SelectedKleur; }
             set { kleurLijst.SelectedKleur = value; RaisePropertyChanged("SelectedKleur"); }
@@ -131,6 +131,19 @@ namespace TestWpf.ViewModel
                 RaisePropertyChanged("LetterGrootte");
             }
         }
+        public string StatusBarTekst
+        {
+            get
+            {
+                return wenskaart.StatusBarTekst;
+            }
+            set
+            {
+                wenskaart.StatusBarTekst = value;
+                RaisePropertyChanged("StatusBarTekst");
+            }
+
+        }
         //Commands===============================================================================
         //Nieuw Command > Default(lege) Wenskaart en ook alles onzichtbaar!
         public RelayCommand NieuwCommand
@@ -144,6 +157,7 @@ namespace TestWpf.ViewModel
             WensTekst = string.Empty;
             SelectedFont = new FontFamily("Segoe UI");
             LetterGrootte = 20;
+            StatusBarTekst = "Nieuw";
         }
         //OpslaanCommand >
         public RelayCommand OpslaanCommand
@@ -183,6 +197,7 @@ namespace TestWpf.ViewModel
                         bestand.WriteLine(LetterGrootte.ToString());
 
                     }
+                    StatusBarTekst = dlg.FileName;
                 }
             }
             catch (Exception ex)
@@ -244,6 +259,7 @@ namespace TestWpf.ViewModel
                         LetterGrootte = Convert.ToInt32(bestand.ReadLine());
 
                     }
+                    StatusBarTekst = dlg.FileName;
                 }
             }
             catch (Exception ex)

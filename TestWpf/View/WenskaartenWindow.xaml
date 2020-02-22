@@ -13,7 +13,16 @@
     </i:Interaction.Triggers>
     <Window.Resources>
         <local:AchtergrondToVisibility x:Key="AchtergrondNaarZichtbaarheid"/>
+        <local:AchtergrondToBoolean x:Key="AchtergrondNaarBoolean"/>
+        
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding  Command="{Binding NieuwCommand}" Key="N" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding OpenenCommand}" Key="O" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding OpslaanCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding PrintPreviewCommand}" Key="F2" Modifiers="Ctrl"/>
+        
+    </Window.InputBindings>
 
     <DockPanel>
         <Menu Height="24" 
@@ -22,23 +31,23 @@
             <MenuItem Header="Bestand">
                 <MenuItem   Name="MenuNieuw"
                             Header="Nieuw"
-                            
+                            InputGestureText="Ctrl+N"
                             Command="{Binding NieuwCommand}"
                             ></MenuItem>
                 <MenuItem   Name="MenuOpenen"
                             Header="Openen"
-                            
+                            InputGestureText="Ctrl+O"
                             Command="{Binding OpenenCommand}"></MenuItem>
                 <MenuItem   Name="MenuOpslaan"
                             Header="Opslaan"
-                            
+                            InputGestureText="Ctrl+S"
                             Command="{Binding OpslaanCommand}"
-                            IsEnabled="{Binding Achtergrond}"></MenuItem>
+                            IsEnabled="{Binding Achtergrond, Converter={StaticResource AchtergrondNaarBoolean}}"></MenuItem>
                 <MenuItem   Name="MenuAfdrukvoorbeeld"
                             Header="Afdrukvoorbeeld"
-                            
+                            InputGestureText="Ctrl+F2"
                             Command="{Binding PrintPreviewCommand}"
-                            IsEnabled="{Binding Achtergrond}"></MenuItem>
+                            IsEnabled="{Binding Achtergrond, Converter={StaticResource AchtergrondNaarBoolean}}"></MenuItem>
                 <Separator></Separator>
                 <MenuItem   Name="MenuAfsluiten"
                             Header="Afsluiten"
@@ -62,21 +71,43 @@
                    >
             <StatusBarItem Name="StatusTekst"
                            HorizontalAlignment="Left"
-                           Content="skjflasjdl"></StatusBarItem>
+                           Content="{Binding StatusBarTekst}"></StatusBarItem>
 
         </StatusBar>
         <StackPanel Orientation="Horizontal" 
-                    Visibility="{Binding Achtergrond }" 
+                    Visibility="{Binding Achtergrond, Converter={StaticResource AchtergrondNaarZichtbaarheid}}" 
                     Name="StackPanelTotaal">
             <StackPanel Margin="0" Width="500" HorizontalAlignment="Left">
                 <Canvas Width="500"
-                Height="400"
-                HorizontalAlignment="Center"
-                
-                >
-                    <Canvas.Background>
-                        <ImageBrush ImageSource="{Binding Achtergrond}"/>
-                    </Canvas.Background>
+                                    Height="400"
+                                    HorizontalAlignment="Center">
+                <ItemsControl ItemsSource="{Binding Ballen}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Width="500"
+                                    Height="400"
+                                    HorizontalAlignment="Center">
+                                <Canvas.Background>
+                                    <ImageBrush ImageSource="{Binding Achtergrond}"/>
+                                </Canvas.Background>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Ellipse Name="Ellipse1" Fill="{Binding KleurBal.Borstel}"  />
+                        </DataTemplate>
+                        
+                    </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter  Property="Canvas.Left" Value="{Binding XPositie}"  ></Setter>
+                                <Setter  Property="Canvas.Top" Value="{Binding YPositie}"></Setter>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                    
+                    
+                </ItemsControl>
                 </Canvas>
                 <TextBox    HorizontalAlignment="Center"
                             Margin="20"
@@ -108,7 +139,7 @@
                     </ComboBox>
                     <Ellipse    HorizontalAlignment="Center"
                             Margin="10"
-                            Fill="{Binding SelectedKleur}"></Ellipse>
+                            Fill="{Binding SelectedKleur.Borstel}"></Ellipse>
                     <Image Source="images\vuilnisbak.png"
                        Margin="50 60 50 40"
                        Height="110"

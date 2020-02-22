@@ -5,6 +5,9 @@
         <Setter Property="Height" Value="40"></Setter>
         <Setter Property="Stroke" Value="Black"></Setter>
         <Setter Property="StrokeThickness" Value="5"></Setter>
+        
     </Style>
     
+    
+
 </ResourceDictionary>

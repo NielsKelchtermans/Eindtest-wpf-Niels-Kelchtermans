@@ -23,6 +23,7 @@ namespace TestWpf.Model
         //public FontFamily LettertypeVanWens { get; set; }
 
         public int LetterGrootte { get; set; }
+        public string StatusBarTekst { get; set; }
 
         public Wenskaart()
         {
@@ -32,7 +33,7 @@ namespace TestWpf.Model
             //default lettertype is Segoe UI
             //LettertypeVanWens = new FontFamily("Segoe UI");
             LetterGrootte = 20;
-
+            StatusBarTekst = "Nieuw";
         }
 
 
