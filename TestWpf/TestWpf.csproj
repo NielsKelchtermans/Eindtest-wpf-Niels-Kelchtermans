@@ -78,6 +78,7 @@
     <Compile Include="Model\Kleur.cs" />
     <Compile Include="Model\Bal.cs" />
     <Compile Include="Model\Wenskaart.cs" />
+    <Compile Include="ViewModel\Converter.cs" />
     <Compile Include="ViewModel\KleurLijstVM.cs" />
     <Compile Include="ViewModel\LettertypenVM.cs" />
     <Compile Include="ViewModel\WenskaartVM.cs" />

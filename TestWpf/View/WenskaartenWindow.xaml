@@ -1,9 +1,7 @@
 ﻿<Window x:Class="TestWpf.View.WenskaartenWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        
-        xmlns:local="clr-namespace:TestWpf.View"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:local="clr-namespace:TestWpf.ViewModel"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:gala="http://www.galasoft.ch/mvvmlight"
         Title="Wenskaarten" Height="550" Width="750">
@@ -13,7 +11,9 @@
                                  PassEventArgsToCommand="True"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
+    <Window.Resources>
+        <local:AchtergrondToVisibility x:Key="AchtergrondNaarZichtbaarheid"/>
+    </Window.Resources>
 
     <DockPanel>
         <Menu Height="24" 
@@ -49,11 +49,11 @@
             <MenuItem Header="Kaarten">
                 <MenuItem Header="Kerstkaart"
                           Name="MenuKerstkaart"
-                          IsCheckable="True"
+                          
                           Command="{Binding KerstCommand}"></MenuItem>
                 <MenuItem Header="Geboortekaart"
                           Name="MenuGeboortekaart"
-                          IsCheckable="True"
+                          
                           Command="{Binding GeboorteCommand}"></MenuItem>
             </MenuItem>
         </Menu>
@@ -65,14 +65,24 @@
                            Content="skjflasjdl"></StatusBarItem>
 
         </StatusBar>
-        <StackPanel Orientation="Horizontal" Visibility="Visible" Name="StackPanelTotaal">
+        <StackPanel Orientation="Horizontal" 
+                    Visibility="{Binding Achtergrond }" 
+                    Name="StackPanelTotaal">
             <StackPanel Margin="0" Width="500" HorizontalAlignment="Left">
                 <Canvas Width="500"
                 Height="400"
                 HorizontalAlignment="Center"
-                ></Canvas>
-                <TextBox HorizontalAlignment="Center"
-                 Margin="20">
+                
+                >
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="{Binding Achtergrond}"/>
+                    </Canvas.Background>
+                </Canvas>
+                <TextBox    HorizontalAlignment="Center"
+                            Margin="20"
+                            FontFamily="{Binding SelectedFont}"
+                            FontSize="{Binding LetterGrootte}"
+                            Text="{Binding WensTekst}">
 
                 </TextBox>
             </StackPanel>
@@ -98,7 +108,7 @@
                     </ComboBox>
                     <Ellipse    HorizontalAlignment="Center"
                             Margin="10"
-                            ></Ellipse>
+                            Fill="{Binding SelectedKleur}"></Ellipse>
                     <Image Source="images\vuilnisbak.png"
                        Margin="50 60 50 40"
                        Height="110"
@@ -118,7 +128,7 @@
                         <TextBlock Text="Grootte"
                                FontSize="14"
                                VerticalAlignment="Center"></TextBlock>
-                        <Label     Content="30"
+                        <Label Content="{Binding LetterGrootte}"
                                FontSize="20"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"></Label>

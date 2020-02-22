@@ -14,6 +14,7 @@ namespace TestWpf.Model
     {
         //props
         public BitmapImage Achtergrond { get; set; }
+        public string AchtergrondNaam { get; set; }
 
         public List<Bal> Ballen { get; set; }
 

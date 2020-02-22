@@ -71,6 +71,18 @@ namespace TestWpf.ViewModel
                 RaisePropertyChanged("Achtergrond");
             }
         }
+        public string AchtergrondNaam
+        {
+            get
+            {
+                return wenskaart.AchtergrondNaam;
+            }
+            set
+            {
+                wenskaart.AchtergrondNaam = value;
+                RaisePropertyChanged("AchtergrondNaam");
+            }
+        }
         public List<Model.Bal> Ballen
         {
             get
@@ -154,17 +166,17 @@ namespace TestWpf.ViewModel
                     using (StreamWriter bestand = new StreamWriter(dlg.FileName))
                     {
                         string pad = Achtergrond.UriSource.AbsoluteUri.ToString();
-                        int startpunt = pad.LastIndexOf("images/") + 7;
-                        int eindpunt = pad.Length - 4;
-                        string naam = pad.Substring(startpunt, eindpunt);
 
-                        bestand.WriteLine(pad + " " + naam);
-                        bestand.WriteLine(Ballen.Count);
 
-                        foreach (Model.Bal bal in Ballen)
-                        {
-                            bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
-                        }
+                        bestand.WriteLine(AchtergrondNaam);
+                        bestand.WriteLine(pad);
+
+                        //bestand.WriteLine(Ballen.Count);
+
+                        //foreach (Model.Bal bal in Ballen)
+                        //{
+                        //    bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
+                        //}
 
                         bestand.WriteLine(WensTekst);
                         bestand.WriteLine(SelectedFont.ToString());
@@ -197,32 +209,33 @@ namespace TestWpf.ViewModel
                 {
                     using (StreamReader bestand = new StreamReader(dlg.FileName))
                     {
-                        //Achtergrond pad en naam
-                        string eersteLijn = bestand.ReadLine();
-                        int eindePad = eersteLijn.IndexOf(" ") - 1;
-                        Achtergrond = new BitmapImage(new Uri(eersteLijn.Substring(0, eindePad), UriKind.Absolute));
-                        //AantalBallen
-                        int aantalBallen = Convert.ToInt32(bestand.ReadLine());
-                        //Lijst maken van Ballen met kleur en xpos, ypos
-                        Ballen = null;
+                        //AchtergrondNaam
+                        AchtergrondNaam = bestand.ReadLine();
+                        //pad
+                        string pad = bestand.ReadLine();
+                        Achtergrond = new BitmapImage(new Uri(pad, UriKind.Absolute));
+                        ////AantalBallen
+                        //int aantalBallen = Convert.ToInt32(bestand.ReadLine());
+                        ////Lijst maken van Ballen met kleur en xpos, ypos
+                        //Ballen = null;
 
-                        for (int i = 0; i < aantalBallen; i++)
-                        {
-                            string balLijn = bestand.ReadLine();
-                            int indexEindeKleur = balLijn.IndexOf(" ") - 1;
-                            string balKleur = balLijn.Substring(0, indexEindeKleur);
-                            BrushConverter bc = new BrushConverter();
-                            SolidColorBrush deKleur = (SolidColorBrush)bc.ConvertFromString(balKleur);
-                            Kleur kleurke = new Kleur();
-                            kleurke.Borstel = deKleur;
-                            kleurke.Naam = balKleur;
-                            //Hex, Rood, Groen, Blauw niet nodig
-                            int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2) - 1;
-                            int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
-                            int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
-                            Model.Bal bal = new Model.Bal(kleurke, xPos, yPos);
-                            Ballen.Add(bal);
-                        }
+                        //for (int i = 0; i < aantalBallen; i++)
+                        //{
+                        //    string balLijn = bestand.ReadLine();
+                        //    int indexEindeKleur = balLijn.IndexOf(" ") - 1;
+                        //    string balKleur = balLijn.Substring(0, indexEindeKleur);
+                        //    BrushConverter bc = new BrushConverter();
+                        //    SolidColorBrush deKleur = (SolidColorBrush)bc.ConvertFromString(balKleur);
+                        //    Kleur kleurke = new Kleur();
+                        //    kleurke.Borstel = deKleur;
+                        //    kleurke.Naam = balKleur;
+                        //    //Hex, Rood, Groen, Blauw niet nodig
+                        //    int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2) - 1;
+                        //    int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
+                        //    int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
+                        //    Model.Bal bal = new Model.Bal(kleurke, xPos, yPos);
+                        //    Ballen.Add(bal);
+                        //}
                         //wens
                         WensTekst = bestand.ReadLine();
                         //lettertype
@@ -265,7 +278,7 @@ namespace TestWpf.ViewModel
         }
         private void MeerApp()
         {
-            if (LetterGrootte <=40 )
+            if (LetterGrootte <40 )
             {
                LetterGrootte += 1;
             }
@@ -277,7 +290,7 @@ namespace TestWpf.ViewModel
         }
         private void MinderApp()
         {
-            if (LetterGrootte >= 10)
+            if (LetterGrootte > 10)
             {
                 LetterGrootte -= 1;
             }
@@ -290,6 +303,7 @@ namespace TestWpf.ViewModel
         private void KerstApp()
         {
             Achtergrond = new BitmapImage(new Uri("pack://application:,,,/images/kerstkaart.jpg", UriKind.Absolute));
+            AchtergrondNaam = "Kerstkaart";
         }
 
         public RelayCommand GeboorteCommand
@@ -299,6 +313,7 @@ namespace TestWpf.ViewModel
         private void GeboorteApp()
         {
             Achtergrond = new BitmapImage(new Uri("pack://application:,,,/images/geboortekaart.jpg", UriKind.Absolute));
+            AchtergrondNaam = "Geboortekaart";
         }
         public RelayCommand<CancelEventArgs> ClosingCommand
         {
