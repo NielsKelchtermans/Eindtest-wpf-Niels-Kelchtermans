@@ -58,6 +58,10 @@ namespace TestWpf.ViewModel
             }
             KleurenLijst = eenKleurenLijst;
         }
+        //public void BalToevoegen(Model.Kleur, int xpos, int ypos)
+        //{
+
+        //}
 
     }
 }

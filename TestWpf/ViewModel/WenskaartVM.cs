@@ -294,9 +294,9 @@ namespace TestWpf.ViewModel
         }
         private void MeerApp()
         {
-            if (LetterGrootte <40 )
+            if (LetterGrootte < 40)
             {
-               LetterGrootte += 1;
+                LetterGrootte += 1;
             }
         }
 
@@ -342,6 +342,29 @@ namespace TestWpf.ViewModel
                 e.Cancel = true;
             }
         }
+        //Drag/Drop
+        //public RelayCommand<MouseEventArgs> MouseMoveCommand
+        //{
+        //    get { return new RelayCommand<MouseEventArgs>(MouseMouveApp); }
 
+        //}
+        //private void MouseMouveApp(MouseEventArgs e)
+        //{
+            
+        //}
+        //Drop
+        //public RelayCommand<DragEventArgs> DropCommand
+        //{
+        //    get { return new RelayCommand<DragEventArgs>(DropApp); }
+        //}
+        //private void DropApp(DragEventArgs e)
+        //{
+        //    var punt = e.GetPosition()
+
+        //}
+        public void ToevoegenBal(int xpos, int ypos)
+        {
+            Model.Bal nieuweBal = new Model.Bal(SelectedKleur, xpos, ypos);
+        }
     }
 }

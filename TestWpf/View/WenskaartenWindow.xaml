@@ -14,14 +14,14 @@
     <Window.Resources>
         <local:AchtergrondToVisibility x:Key="AchtergrondNaarZichtbaarheid"/>
         <local:AchtergrondToBoolean x:Key="AchtergrondNaarBoolean"/>
-        
+
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding  Command="{Binding NieuwCommand}" Key="N" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding OpenenCommand}" Key="O" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding OpslaanCommand}" Key="S" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding PrintPreviewCommand}" Key="F2" Modifiers="Ctrl"/>
-        
+
     </Window.InputBindings>
 
     <DockPanel>
@@ -76,38 +76,45 @@
         </StatusBar>
         <StackPanel Orientation="Horizontal" 
                     Visibility="{Binding Achtergrond, Converter={StaticResource AchtergrondNaarZichtbaarheid}}" 
-                    Name="StackPanelTotaal">
+                    Name="StackPanelTotaal"
+                    >
             <StackPanel Margin="0" Width="500" HorizontalAlignment="Left">
                 <Canvas Width="500"
                                     Height="400"
-                                    HorizontalAlignment="Center">
-                <ItemsControl ItemsSource="{Binding Ballen}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas Width="500"
+                                    HorizontalAlignment="Center" Name="CanvasPrikker" AllowDrop="True">
+                    <ItemsControl ItemsSource="{Binding Ballen}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas Name="CanvasPrikker"
+                                    Width="500"
                                     Height="400"
-                                    HorizontalAlignment="Center">
-                                <Canvas.Background>
-                                    <ImageBrush ImageSource="{Binding Achtergrond}"/>
-                                </Canvas.Background>
-                            </Canvas>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Ellipse Name="Ellipse1" Fill="{Binding KleurBal.Borstel}"  />
-                        </DataTemplate>
-                        
-                    </ItemsControl.ItemTemplate>
+                                    HorizontalAlignment="Center"
+                                    AllowDrop="True"
+                                    Drop="Canvas_Drop"    
+                                    >
+                                    <Canvas.Background>
+                                        <ImageBrush ImageSource="{Binding Achtergrond}"/>
+                                    </Canvas.Background>
+                                    
+
+                                </Canvas>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Ellipse Name="Ellipse1" Fill="{Binding KleurBal.Borstel}"  />
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemContainerStyle>
                             <Style TargetType="ContentPresenter">
                                 <Setter  Property="Canvas.Left" Value="{Binding XPositie}"  ></Setter>
                                 <Setter  Property="Canvas.Top" Value="{Binding YPositie}"></Setter>
                             </Style>
                         </ItemsControl.ItemContainerStyle>
-                    
-                    
-                </ItemsControl>
+
+
+                    </ItemsControl>
                 </Canvas>
                 <TextBox    HorizontalAlignment="Center"
                             Margin="20"
@@ -139,10 +146,13 @@
                     </ComboBox>
                     <Ellipse    HorizontalAlignment="Center"
                             Margin="10"
-                            Fill="{Binding SelectedKleur.Borstel}"></Ellipse>
+                            Fill="{Binding SelectedKleur.Borstel}"
+                            MouseMove="Ellipse_MouseMove">
+                            
+                    </Ellipse>
                     <Image Source="images\vuilnisbak.png"
                        Margin="50 60 50 40"
-                       Height="110"
+                       Height="110" 
                        ></Image>
                     <TextBlock Text="Lettertype"
                            HorizontalAlignment="Center"
