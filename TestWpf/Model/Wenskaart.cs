@@ -15,21 +15,21 @@ namespace TestWpf.Model
         //props
         public BitmapImage Achtergrond { get; set; }
 
-        public Ballen BallenLijst { get; set; }
+        public List<Bal> Ballen { get; set; }
 
         public string WensTekst { get; set; }
 
-        public FontFamily LettertypeVanWens { get; set; }
+        //public FontFamily LettertypeVanWens { get; set; }
 
         public int LetterGrootte { get; set; }
 
         public Wenskaart()
         {
             Achtergrond = null;
-            BallenLijst = null;
+            Ballen = null;
             WensTekst = string.Empty;
             //default lettertype is Segoe UI
-            LettertypeVanWens = new FontFamily("Segoe UI");
+            //LettertypeVanWens = new FontFamily("Segoe UI");
             LetterGrootte = 20;
 
         }

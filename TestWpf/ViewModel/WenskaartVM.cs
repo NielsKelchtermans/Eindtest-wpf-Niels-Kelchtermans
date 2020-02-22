@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace TestWpf.ViewModel
 {
@@ -22,13 +23,42 @@ namespace TestWpf.ViewModel
     {
         //aanmaken Model object Wenskaart 
         private Model.Wenskaart wenskaart;
+        private KleurLijst kleurLijst;
+        private LettertypenVM fontLijst;
 
         //ctor
-        public WenskaartVM(Model.Wenskaart nWenskaart)
+        public WenskaartVM(Model.Wenskaart nWenskaart, KleurLijst nkleurLijst, LettertypenVM nfontLijst)
         {
             this.wenskaart = nWenskaart;
+            this.kleurLijst = nkleurLijst;
+            this.fontLijst = nfontLijst;
         }
         //props
+
+        //fontLijst
+        public ObservableCollection<FontFamily> FontLijst
+        {
+            get { return fontLijst.FontLijst; }
+            set { fontLijst.FontLijst = value; RaisePropertyChanged("FontLijst"); }
+        }
+        public FontFamily SelectedFont
+        {
+            get { return fontLijst.SelectedFont; }
+            set { fontLijst.SelectedFont = value; RaisePropertyChanged("SelectedFont"); }
+        }
+
+        //KleurenLijst
+        public ObservableCollection<Kleur> KleurenLijst
+        {
+            get { return kleurLijst.KleurenLijst; }
+            set { kleurLijst.KleurenLijst = value; RaisePropertyChanged("KleurenLijst"); }
+        }
+        public Kleur SelectedKleur
+        {
+            get { return kleurLijst.SelectedKleur; }
+            set { kleurLijst.SelectedKleur = value; RaisePropertyChanged("SelectedKleur"); }
+        }
+
         public BitmapImage Achtergrond
         {
             get
@@ -41,16 +71,16 @@ namespace TestWpf.ViewModel
                 RaisePropertyChanged("Achtergrond");
             }
         }
-        public Model.Ballen BallenLijst
+        public List<Model.Bal> Ballen
         {
             get
             {
-                return wenskaart.BallenLijst;
+                return wenskaart.Ballen;
             }
             set
             {
-                wenskaart.BallenLijst = value;
-                RaisePropertyChanged("BallenLijst");
+                wenskaart.Ballen = value;
+                RaisePropertyChanged("Ballen");
             }
         }
         public string WensTekst
@@ -65,18 +95,18 @@ namespace TestWpf.ViewModel
                 RaisePropertyChanged("WensTekst");
             }
         }
-        public FontFamily LettertypeVanWens
-        {
-            get
-            {
-                return wenskaart.LettertypeVanWens;
-            }
-            set
-            {
-                wenskaart.LettertypeVanWens = value;
-                RaisePropertyChanged("LettertypeVanWens");
-            }
-        }
+        //public FontFamily LettertypeVanWens
+        //{
+        //    get
+        //    {
+        //        return wenskaart.LettertypeVanWens;
+        //    }
+        //    set
+        //    {
+        //        wenskaart.LettertypeVanWens = value;
+        //        RaisePropertyChanged("LettertypeVanWens");
+        //    }
+        //}
         public int LetterGrootte
         {
             get
@@ -98,9 +128,9 @@ namespace TestWpf.ViewModel
         private void NieuweWenskaart()
         {
             Achtergrond = null;
-            BallenLijst = null;
+            Ballen = null;
             WensTekst = string.Empty;
-            LettertypeVanWens = new FontFamily("Segoe UI");
+            SelectedFont = new FontFamily("Segoe UI");
             LetterGrootte = 20;
         }
         //OpslaanCommand >
@@ -129,15 +159,15 @@ namespace TestWpf.ViewModel
                         string naam = pad.Substring(startpunt, eindpunt);
 
                         bestand.WriteLine(pad + " " + naam);
-                        bestand.WriteLine(BallenLijst.LengteLijstBallen);
+                        bestand.WriteLine(Ballen.Count);
 
-                        foreach (Model.Bal bal in BallenLijst.LijstBallen)
+                        foreach (Model.Bal bal in Ballen)
                         {
                             bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
                         }
 
                         bestand.WriteLine(WensTekst);
-                        bestand.WriteLine(LettertypeVanWens.ToString());
+                        bestand.WriteLine(SelectedFont.ToString());
                         bestand.WriteLine(LetterGrootte.ToString());
 
                     }
@@ -174,7 +204,7 @@ namespace TestWpf.ViewModel
                         //AantalBallen
                         int aantalBallen = Convert.ToInt32(bestand.ReadLine());
                         //Lijst maken van Ballen met kleur en xpos, ypos
-                        BallenLijst.LijstBallen = null;
+                        Ballen = null;
 
                         for (int i = 0; i < aantalBallen; i++)
                         {
@@ -191,12 +221,12 @@ namespace TestWpf.ViewModel
                             int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
                             int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
                             Model.Bal bal = new Model.Bal(kleurke, xPos, yPos);
-                            BallenLijst.LijstBallen.Add(bal);
+                            Ballen.Add(bal);
                         }
                         //wens
                         WensTekst = bestand.ReadLine();
                         //lettertype
-                        LettertypeVanWens = new FontFamily(bestand.ReadLine());
+                        SelectedFont = new FontFamily(bestand.ReadLine());
                         //lettergrootte
                         LetterGrootte = Convert.ToInt32(bestand.ReadLine());
 

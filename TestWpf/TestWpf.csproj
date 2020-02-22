@@ -74,10 +74,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Ballen.cs" />
+    <Compile Include="Model\Comparer.cs" />
     <Compile Include="Model\Kleur.cs" />
     <Compile Include="Model\Bal.cs" />
     <Compile Include="Model\Wenskaart.cs" />
+    <Compile Include="ViewModel\KleurLijstVM.cs" />
+    <Compile Include="ViewModel\LettertypenVM.cs" />
     <Compile Include="ViewModel\WenskaartVM.cs" />
     <Compile Include="View\WenskaartenWindow.xaml.cs">
       <DependentUpon>WenskaartenWindow.xaml</DependentUpon>

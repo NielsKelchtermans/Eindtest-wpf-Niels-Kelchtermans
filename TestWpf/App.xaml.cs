@@ -20,39 +20,31 @@ namespace TestWpf
     /// </summary>
     public partial class App : Application
     {
-        //protected override void OnStartup(StartupEventArgs e)
-        //{
-        //    base.OnStartup(e);
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            //aanmaken wenskaart
+            Model.Wenskaart wenskaartStart = new Model.Wenskaart();
+            //viewModel wenskaart
+            ViewModel.KleurLijst kleurLijst = new ViewModel.KleurLijst();
+            ViewModel.LettertypenVM fontLijst = new ViewModel.LettertypenVM();
+            ViewModel.WenskaartVM wenskaartVMStart = new ViewModel.WenskaartVM(wenskaartStart, kleurLijst, fontLijst);
+            //View
+            View.WenskaartenWindow wenskaartenWindow = new View.WenskaartenWindow();
+            
+           
 
-        //    //kleuren inladen in de combobox
-        //    foreach (PropertyInfo propInfo in typeof(Colors).GetProperties())     
-        //    {
-        //        //het kleur object aanmaken
-        //        Kleur eenKleur = new Kleur();
-                
-        //        BrushConverter eenBrushConverter = new BrushConverter();
-                
-        //        SolidColorBrush deKleur = (SolidColorBrush)eenBrushConverter.ConvertFromString(propInfo.Name);
-
-        //        eenKleur.Naam = propInfo.Name;
-        //        eenKleur.Borstel = deKleur;
-        //        eenKleur.Hex = deKleur.ToString();              //komt later goed van pas deze tostring van een solidcolorbrush object
-        //        eenKleur.Blauw = deKleur.Color.B;               //allemaal via het solidColorBrush object  ...waarom niet via propInfo? heeft niet die props dus via een casting
-        //        eenKleur.Groen = deKleur.Color.G;               //bytes
-        //        eenKleur.Rood = deKleur.Color.R;
-
-        //          //Inladen in de combobox
-        //        ComboBoxKleuren.Items.Add(eenKleur);
-                
-
-        //        ////lettertypes alfabetisch laden
-        //        ////LettertypeComboBox.Items.SortDescriptions.Add(
-        //        ////new SortDescription("Source", ListSortDirection.Ascending));
-
-        //    }
+            //datacontext
+            wenskaartenWindow.DataContext = wenskaartVMStart;
+            wenskaartenWindow.Show();
 
 
-        //}
+
+            
+            ////lettertypes alfabetisch laden
+            //LettertypeComboBox.Items.SortDescriptions.Add(
+            //new SortDescription("Source", ListSortDirection.Ascending));
+        }
     }
 }
 
