@@ -82,7 +82,7 @@
                 <Canvas Width="500"
                                     Height="400"
                                     HorizontalAlignment="Center" Name="CanvasPrikker" AllowDrop="True"
-                        Drop="Canvas_Drop">
+                       >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Drop">
                             <gala:EventToCommand Command="{Binding DropCommand}"
@@ -187,10 +187,7 @@
                             <RepeatButton Content="-" Height="16" Width="16"
                                           Command="{Binding MinderCommand}"></RepeatButton>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                        <Label Name="xpositietext" Content="{Binding TempX}" Visibility="Visible"></Label>
-                        <Label Name="ypositietext" Content="{Binding TempY}" Visibility="Visible"></Label>
-                        </StackPanel>
+                       
                     </StackPanel>
 
 

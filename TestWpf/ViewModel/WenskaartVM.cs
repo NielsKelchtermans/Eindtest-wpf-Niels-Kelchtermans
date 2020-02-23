@@ -108,18 +108,7 @@ namespace TestWpf.ViewModel
                 RaisePropertyChanged("WensTekst");
             }
         }
-        //public FontFamily LettertypeVanWens
-        //{
-        //    get
-        //    {
-        //        return wenskaart.LettertypeVanWens;
-        //    }
-        //    set
-        //    {
-        //        wenskaart.LettertypeVanWens = value;
-        //        RaisePropertyChanged("LettertypeVanWens");
-        //    }
-        //}
+        
         public int LetterGrootte
         {
             get
@@ -145,33 +134,7 @@ namespace TestWpf.ViewModel
             }
 
         }
-        public int TempX
-        {
-            get
-            {
-                return wenskaart.TempX;
-            }
-            set
-            {
-                wenskaart.TempX = value;
-
-                RaisePropertyChanged("TempX");
-                
-            }
-        }
-        public int TempY
-        {
-            get
-            {
-                return wenskaart.TempY;
-            }
-            set
-            {
-                wenskaart.TempY = value;
-
-                RaisePropertyChanged("TempY");
-            }
-        }
+        
         //Commands===============================================================================
         //Nieuw Command > Default(lege) Wenskaart en ook alles onzichtbaar!
         public RelayCommand NieuwCommand
@@ -181,7 +144,7 @@ namespace TestWpf.ViewModel
         private void NieuweWenskaart()
         {
             Achtergrond = null;
-            Ballen = null;
+            Ballen = new ObservableCollection<Model.Bal> { };
             WensTekst = string.Empty;
             SelectedFont = new FontFamily("Segoe UI");
             LetterGrootte = 20;
@@ -217,14 +180,16 @@ namespace TestWpf.ViewModel
 
                         foreach (Model.Bal bal in Ballen)
                         {
-                            bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
+                            //bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
+                            bestand.WriteLine(bal.KleurBal.Naam);
+                            bestand.WriteLine(bal.XPositie.ToString());
+                            bestand.WriteLine(bal.YPositie.ToString());
                         }
 
                         bestand.WriteLine(WensTekst);
                         bestand.WriteLine(SelectedFont.ToString());
                         bestand.WriteLine(LetterGrootte.ToString());
-                        //temp
-                        bestand.WriteLine(TempX);
+                        
 
                     }
                     StatusBarTekst = dlg.FileName;
@@ -254,9 +219,9 @@ namespace TestWpf.ViewModel
                 {
                     using (StreamReader bestand = new StreamReader(dlg.FileName))
                     {
-                        //AchtergrondNaam
+                        //1 AchtergrondNaam
                         AchtergrondNaam = bestand.ReadLine();
-                        //pad
+                        //2 pad
                         string pad = bestand.ReadLine();
                         Achtergrond = new BitmapImage(new Uri(pad, UriKind.Absolute));
                         //AantalBallen
@@ -266,18 +231,28 @@ namespace TestWpf.ViewModel
 
                         for (int i = 0; i < aantalBallen; i++)
                         {
-                            string balLijn = bestand.ReadLine();
-                            int indexEindeKleur = balLijn.IndexOf(" ") - 1;
-                            string balKleur = balLijn.Substring(0, indexEindeKleur);
+                            //string balLijn = bestand.ReadLine();
+                            //int indexEindeKleur = balLijn.IndexOf(" ") - 1;
+                            //string balKleur = balLijn.Substring(0, indexEindeKleur);
+                            //BrushConverter bc = new BrushConverter();
+                            //SolidColorBrush deKleur = (SolidColorBrush)bc.ConvertFromString(balKleur);
+                            //Model.Kleur kleurke = new Model.Kleur();
+                            //kleurke.Borstel = deKleur;
+                            //kleurke.Naam = balKleur;
+                            ////Hex, Rood, Groen, Blauw niet nodig
+                            //int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2) - 1;
+                            //int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
+                            //int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
+                            string balKleur = bestand.ReadLine();
                             BrushConverter bc = new BrushConverter();
                             SolidColorBrush deKleur = (SolidColorBrush)bc.ConvertFromString(balKleur);
                             Model.Kleur kleurke = new Model.Kleur();
                             kleurke.Borstel = deKleur;
                             kleurke.Naam = balKleur;
-                            //Hex, Rood, Groen, Blauw niet nodig
-                            int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2) - 1;
-                            int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
-                            int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
+                            string Xje = bestand.ReadLine();
+                            string Yje = bestand.ReadLine();
+                            int xPos = Convert.ToInt32(Xje);
+                            int yPos = Convert.ToInt32(Yje);
                             Model.Bal bal = new Model.Bal(kleurke, xPos, yPos);
                             Ballen.Add(bal);
                         }
@@ -348,8 +323,12 @@ namespace TestWpf.ViewModel
         }
         private void KerstApp()
         {
+            NieuweWenskaart();
             Achtergrond = new BitmapImage(new Uri("pack://application:,,,/images/kerstkaart.jpg", UriKind.Absolute));
             AchtergrondNaam = "Kerstkaart";
+            
+
+
         }
 
         public RelayCommand GeboorteCommand
@@ -358,6 +337,7 @@ namespace TestWpf.ViewModel
         }
         private void GeboorteApp()
         {
+            NieuweWenskaart();
             Achtergrond = new BitmapImage(new Uri("pack://application:,,,/images/geboortekaart.jpg", UriKind.Absolute));
             AchtergrondNaam = "Geboortekaart";
         }

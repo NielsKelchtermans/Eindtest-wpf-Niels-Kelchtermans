@@ -41,33 +41,33 @@ namespace TestWpf.View
 
         }
         //private Ellipse bal = new Ellipse();
-        private void Canvas_Drop(object sender, DragEventArgs e)
-        {
-            Ellipse bal = new Ellipse();
-            if (e.Data.GetDataPresent("deKleur"))
-            {
+        //private void Canvas_Drop(object sender, DragEventArgs e)
+        //{
+        //    Ellipse bal = new Ellipse();
+        //    if (e.Data.GetDataPresent("deKleur"))
+        //    {
 
-                Canvas canvasje = (Canvas)sender;
+        //        Canvas canvasje = (Canvas)sender;
 
-                Point punt = e.GetPosition(CanvasPrikker);
-
-
-                int xpos = Convert.ToInt32(punt.X) - 20;
-                int ypos = Convert.ToInt32(punt.Y) - 20;
-                xpositietext.Content = xpos;
-                ypositietext.Content = ypos;
+        //        Point punt = e.GetPosition(CanvasPrikker);
 
 
+        //        int xpos = Convert.ToInt32(punt.X) - 20;
+        //        int ypos = Convert.ToInt32(punt.Y) - 20;
+        //        xpositietext.Content = xpos;
+        //        ypositietext.Content = ypos;
 
 
-                //Brush gesleepteKleur = (Brush)e.Data.GetData("deKleur");
-                //bal.Fill = gesleepteKleur;
-                //Canvas.SetLeft(bal, punt.X - 20);
-                //Canvas.SetTop(bal, punt.Y - 20);
+
+
+        //        //Brush gesleepteKleur = (Brush)e.Data.GetData("deKleur");
+        //        //bal.Fill = gesleepteKleur;
+        //        //Canvas.SetLeft(bal, punt.X - 20);
+        //        //Canvas.SetTop(bal, punt.Y - 20);
                 
-                //CanvasPrikker.Children.Add(bal);
-            }
-        }
+        //        //CanvasPrikker.Children.Add(bal);
+        //    }
+        //}
 
 
     }
