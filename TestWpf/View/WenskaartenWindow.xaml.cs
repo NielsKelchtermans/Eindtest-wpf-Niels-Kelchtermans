@@ -46,19 +46,29 @@ namespace TestWpf.View
             Ellipse bal = new Ellipse();
             if (e.Data.GetDataPresent("deKleur"))
             {
-                Brush gesleepteKleur = (Brush)e.Data.GetData("deKleur");
+
                 Canvas canvasje = (Canvas)sender;
-                bal.Fill = gesleepteKleur;
+
                 Point punt = e.GetPosition(CanvasPrikker);
-                Canvas.SetLeft(bal, punt.X-20);
-                Canvas.SetTop(bal, punt.Y-20);
-                //int xpos = Convert.ToInt32(punt.X) - 20;
-                //int ypos = Convert.ToInt32(punt.Y) - 20;
-                //ViewModel.WenskaartVM.ToevoegenBal(xpos, ypos);
-                CanvasPrikker.Children.Add(bal);
+
+
+                int xpos = Convert.ToInt32(punt.X) - 20;
+                int ypos = Convert.ToInt32(punt.Y) - 20;
+                xpositietext.Content = xpos;
+                ypositietext.Content = ypos;
+
+
+
+
+                //Brush gesleepteKleur = (Brush)e.Data.GetData("deKleur");
+                //bal.Fill = gesleepteKleur;
+                //Canvas.SetLeft(bal, punt.X - 20);
+                //Canvas.SetTop(bal, punt.Y - 20);
+                
+                //CanvasPrikker.Children.Add(bal);
             }
         }
 
-       
+
     }
 }

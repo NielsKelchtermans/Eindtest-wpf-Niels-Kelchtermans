@@ -81,16 +81,23 @@
             <StackPanel Margin="0" Width="500" HorizontalAlignment="Left">
                 <Canvas Width="500"
                                     Height="400"
-                                    HorizontalAlignment="Center" Name="CanvasPrikker" AllowDrop="True">
+                                    HorizontalAlignment="Center" Name="CanvasPrikker" AllowDrop="True"
+                        Drop="Canvas_Drop">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <gala:EventToCommand Command="{Binding DropCommand}"
+                                         PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ItemsControl ItemsSource="{Binding Ballen}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <Canvas Name="CanvasPrikker"
+                                <Canvas 
                                     Width="500"
                                     Height="400"
                                     HorizontalAlignment="Center"
                                     AllowDrop="True"
-                                    Drop="Canvas_Drop"    
+                                      
                                     >
                                     <Canvas.Background>
                                         <ImageBrush ImageSource="{Binding Achtergrond}"/>
@@ -116,7 +123,8 @@
 
                     </ItemsControl>
                 </Canvas>
-                <TextBox    HorizontalAlignment="Center"
+                <TextBox    Name="wens"
+                            HorizontalAlignment="Center"
                             Margin="20"
                             FontFamily="{Binding SelectedFont}"
                             FontSize="{Binding LetterGrootte}"
@@ -148,7 +156,7 @@
                             Margin="10"
                             Fill="{Binding SelectedKleur.Borstel}"
                             MouseMove="Ellipse_MouseMove">
-                            
+
                     </Ellipse>
                     <Image Source="images\vuilnisbak.png"
                        Margin="50 60 50 40"
@@ -179,8 +187,10 @@
                             <RepeatButton Content="-" Height="16" Width="16"
                                           Command="{Binding MinderCommand}"></RepeatButton>
                         </StackPanel>
-
-
+                        <StackPanel Orientation="Vertical">
+                        <Label Name="xpositietext" Content="{Binding TempX}" Visibility="Visible"></Label>
+                        <Label Name="ypositietext" Content="{Binding TempY}" Visibility="Visible"></Label>
+                        </StackPanel>
                     </StackPanel>
 
 

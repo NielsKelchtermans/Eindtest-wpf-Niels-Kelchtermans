@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 
 namespace TestWpf.Model
@@ -16,7 +17,8 @@ namespace TestWpf.Model
         public BitmapImage Achtergrond { get; set; }
         public string AchtergrondNaam { get; set; }
 
-        public List<Bal> Ballen { get; set; }
+        private ObservableCollection<Bal> ballen = new ObservableCollection<Bal>();
+        public ObservableCollection<Bal> Ballen { get; set; }
 
         public string WensTekst { get; set; }
 
@@ -24,16 +26,21 @@ namespace TestWpf.Model
 
         public int LetterGrootte { get; set; }
         public string StatusBarTekst { get; set; }
+        //voor de balcoordinaten
+        public int TempX { get; set; }
+        public int TempY { get; set; }
 
         public Wenskaart()
         {
             Achtergrond = null;
-            Ballen = null;
+            Ballen = new ObservableCollection<Bal> { };
             WensTekst = string.Empty;
             //default lettertype is Segoe UI
             //LettertypeVanWens = new FontFamily("Segoe UI");
             LetterGrootte = 20;
             StatusBarTekst = "Nieuw";
+            TempX = 0;
+            TempY = 0;
         }
 
 

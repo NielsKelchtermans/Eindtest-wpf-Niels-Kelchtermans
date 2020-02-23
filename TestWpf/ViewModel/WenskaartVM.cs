@@ -83,7 +83,8 @@ namespace TestWpf.ViewModel
                 RaisePropertyChanged("AchtergrondNaam");
             }
         }
-        public List<Model.Bal> Ballen
+        private ObservableCollection<Model.Bal> ballen = new ObservableCollection<Model.Bal>();
+        public ObservableCollection<Model.Bal> Ballen
         {
             get
             {
@@ -144,6 +145,33 @@ namespace TestWpf.ViewModel
             }
 
         }
+        public int TempX
+        {
+            get
+            {
+                return wenskaart.TempX;
+            }
+            set
+            {
+                wenskaart.TempX = value;
+
+                RaisePropertyChanged("TempX");
+                
+            }
+        }
+        public int TempY
+        {
+            get
+            {
+                return wenskaart.TempY;
+            }
+            set
+            {
+                wenskaart.TempY = value;
+
+                RaisePropertyChanged("TempY");
+            }
+        }
         //Commands===============================================================================
         //Nieuw Command > Default(lege) Wenskaart en ook alles onzichtbaar!
         public RelayCommand NieuwCommand
@@ -185,16 +213,18 @@ namespace TestWpf.ViewModel
                         bestand.WriteLine(AchtergrondNaam);
                         bestand.WriteLine(pad);
 
-                        //bestand.WriteLine(Ballen.Count);
+                        bestand.WriteLine(Ballen.Count);
 
-                        //foreach (Model.Bal bal in Ballen)
-                        //{
-                        //    bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
-                        //}
+                        foreach (Model.Bal bal in Ballen)
+                        {
+                            bestand.WriteLine(bal.KleurBal.Naam + " " + bal.XPositie.ToString() + " " + bal.YPositie.ToString());
+                        }
 
                         bestand.WriteLine(WensTekst);
                         bestand.WriteLine(SelectedFont.ToString());
                         bestand.WriteLine(LetterGrootte.ToString());
+                        //temp
+                        bestand.WriteLine(TempX);
 
                     }
                     StatusBarTekst = dlg.FileName;
@@ -229,28 +259,28 @@ namespace TestWpf.ViewModel
                         //pad
                         string pad = bestand.ReadLine();
                         Achtergrond = new BitmapImage(new Uri(pad, UriKind.Absolute));
-                        ////AantalBallen
-                        //int aantalBallen = Convert.ToInt32(bestand.ReadLine());
-                        ////Lijst maken van Ballen met kleur en xpos, ypos
-                        //Ballen = null;
+                        //AantalBallen
+                        int aantalBallen = Convert.ToInt32(bestand.ReadLine());
+                        //Lijst maken van Ballen met kleur en xpos, ypos
+                        Ballen = new ObservableCollection<Model.Bal> { };
 
-                        //for (int i = 0; i < aantalBallen; i++)
-                        //{
-                        //    string balLijn = bestand.ReadLine();
-                        //    int indexEindeKleur = balLijn.IndexOf(" ") - 1;
-                        //    string balKleur = balLijn.Substring(0, indexEindeKleur);
-                        //    BrushConverter bc = new BrushConverter();
-                        //    SolidColorBrush deKleur = (SolidColorBrush)bc.ConvertFromString(balKleur);
-                        //    Kleur kleurke = new Kleur();
-                        //    kleurke.Borstel = deKleur;
-                        //    kleurke.Naam = balKleur;
-                        //    //Hex, Rood, Groen, Blauw niet nodig
-                        //    int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2) - 1;
-                        //    int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
-                        //    int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
-                        //    Model.Bal bal = new Model.Bal(kleurke, xPos, yPos);
-                        //    Ballen.Add(bal);
-                        //}
+                        for (int i = 0; i < aantalBallen; i++)
+                        {
+                            string balLijn = bestand.ReadLine();
+                            int indexEindeKleur = balLijn.IndexOf(" ") - 1;
+                            string balKleur = balLijn.Substring(0, indexEindeKleur);
+                            BrushConverter bc = new BrushConverter();
+                            SolidColorBrush deKleur = (SolidColorBrush)bc.ConvertFromString(balKleur);
+                            Model.Kleur kleurke = new Model.Kleur();
+                            kleurke.Borstel = deKleur;
+                            kleurke.Naam = balKleur;
+                            //Hex, Rood, Groen, Blauw niet nodig
+                            int indexEindeXPos = balLijn.IndexOf(" ", indexEindeKleur + 2) - 1;
+                            int xPos = Convert.ToInt32(balLijn.Substring(indexEindeKleur + 2, indexEindeXPos));
+                            int yPos = Convert.ToInt32(balLijn.Substring(indexEindeXPos + 2));
+                            Model.Bal bal = new Model.Bal(kleurke, xPos, yPos);
+                            Ballen.Add(bal);
+                        }
                         //wens
                         WensTekst = bestand.ReadLine();
                         //lettertype
@@ -350,21 +380,31 @@ namespace TestWpf.ViewModel
         //}
         //private void MouseMouveApp(MouseEventArgs e)
         //{
-            
-        //}
-        //Drop
-        //public RelayCommand<DragEventArgs> DropCommand
-        //{
-        //    get { return new RelayCommand<DragEventArgs>(DropApp); }
-        //}
-        //private void DropApp(DragEventArgs e)
-        //{
-        //    var punt = e.GetPosition()
 
         //}
-        public void ToevoegenBal(int xpos, int ypos)
+        //Drop
+        public RelayCommand<DragEventArgs> DropCommand
         {
-            Model.Bal nieuweBal = new Model.Bal(SelectedKleur, xpos, ypos);
+            get { return new RelayCommand<DragEventArgs>(DropApp); }
         }
+        private void DropApp(DragEventArgs e)
+        {
+            Point positie = e.GetPosition(Application.Current.MainWindow);
+            //int posx = Convert.ToInt32(TempX);
+            //int posy = Convert.ToInt32(TempY);
+            
+            
+            int posx = Convert.ToInt32(positie.X);
+            int posy = Convert.ToInt32(positie.Y);
+            Model.Bal nieuwBal = new Model.Bal(SelectedKleur, posx-20, posy-20);
+            Ballen.Add(nieuwBal);
+        }
+        //private void MaakBal()
+        //{
+        //    int posX = Convert.ToInt32(TempX);
+        //    int posY = Convert.ToInt32(TempY);
+        //    Model.Bal nieuwBal = new Model.Bal(SelectedKleur, posX, posY);
+        //    Ballen.Add(nieuwBal);
+        //}
     }
 }

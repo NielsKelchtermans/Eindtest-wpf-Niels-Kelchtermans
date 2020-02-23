@@ -26,14 +26,16 @@ namespace TestWpf
             //test aanmaak van een bal
             //Model.Kleur kleurtje = new Model.Kleur();
             //kleurtje.Borstel = new SolidColorBrush(Colors.Red);
-            
-            //Model.Bal bal1 = new Model.Bal(kleurtje, 150, 150);
-
+            //kleurtje.Naam = "Red";
+            //Model.Bal bal1 = new Model.Bal(kleurtje, 100, 100);
+            //Model.Bal bal2 = new Model.Bal(kleurtje, 150, 150);
             //aanmaken wenskaart
             Model.Wenskaart wenskaartStart = new Model.Wenskaart();
-
+            //wenskaartStart.TempX = 250;
+            //wenskaartStart.TempY = 250;
+            
             //invoegen bal in wenskaart
-            //wenskaartStart.Ballen = new List<Model.Bal> { bal1 };
+            //wenskaartStart.Ballen = new System.Collections.ObjectModel.ObservableCollection<Model.Bal> { bal1, bal2 };
 
             //viewModel wenskaart
             ViewModel.KleurLijst kleurLijst = new ViewModel.KleurLijst();
