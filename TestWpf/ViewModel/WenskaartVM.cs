@@ -149,6 +149,7 @@ namespace TestWpf.ViewModel
             SelectedFont = new FontFamily("Segoe UI");
             LetterGrootte = 20;
             StatusBarTekst = "Nieuw";
+            SelectedKleur = null;
         }
         //OpslaanCommand >
         public RelayCommand OpslaanCommand
